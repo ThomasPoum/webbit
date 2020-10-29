@@ -1,5 +1,19 @@
-<h1>New Submission</h1>
+<% content_for :primary_content do %>
 
-<%= render 'form', submission: @submission %>
+    <div class="px-4 pt-10 pb-10 lg:p-10">
+        <h1 class="mb-6 text-xl font-normal">New Submission</h1>
+            <%= render 'form', submission: @submission %>
+    </div>
+<% end %>
 
-<%= link_to 'Back', submissions_path %>
+
+<% content_for :secondary_content do %>
+<div class="px-8 pt-6 pb-8">
+    <div class="my-4 text-center">
+    <%= image_tag "submission.svg", class: "inline max-w-full w-1/2" %>
+    </div>
+    <%= render "guidelines" %>
+</div>
+<% end %>
+
+<%= render "basic_layout" %>
