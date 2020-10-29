@@ -1,4 +1,4 @@
-document.addEventListener("turbolink:load", () => {
+document.addEventListener("turbolinks:load", () => {
     const dropdown = document.querySelector(".js-dropdown-user-target");
     const dropdownList = document.querySelector(".dropdown-list");
 
