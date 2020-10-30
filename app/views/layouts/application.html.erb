@@ -34,7 +34,7 @@
       <% end %>
     <% end %>
 
-    <nav class="py-2 bg-white border-b bordey-gray-400" role="navigation" aria-label="main navigation">
+    <nav class="py-2 bg-white border-b js-nav bordey-gray-400" role="navigation" aria-label="main navigation">
       <div class="flex flex-wrap items-center justify-center px-4 lg:justify-start lg:content-center lg:px-6">
           
         <%= link_to root_path, class: "leading-normal no-underline text-gray-800 my-2 md:my-0" do %>
@@ -43,17 +43,28 @@
 
         <div class="flex flex-wrap justify-start w-full lg:w-2/3">
           <div class="w-full px-0 mb-2 lg:w-1/4 md:px-2 lg:mb-0">
-            <div class="relative">
-              <select class="select" id="community">
-                <option>Community 1</option>
-                <option>Community 2</option>
-                <option>Community 3</option>
-              </select>
-              <div class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-600 pointer-events-none">
-              <%= render_svg 'icons/cheveron-down', styles: "fill-current h-4 w-4" %>
-              </div>
+
+            <div class="relative z-50 ml-1 text-gray-700 bg-white rounded dropdown hover:bg-gray-200">
+              <%= link_to "#", class: "dropdown-target border no-underline flex justify-between text-gray-700 items-center pt-2 pb-2 pl-3 pr-1 text-sm rounded", role: "button" do %>
+                <%= content_for?(:community_label) ? yield(:community_label) : "Select a community" %>
+                <%= render_svg "icons/chevron-down" %>
+              <% end %>
+              <ul class="z-50 hidden p-0 text-sm leading-normal list-none border-t rounded-b shadow-lg dropdown-menu">
+
+                <% @communities.each do |community| %>
+                  <li>
+                    <%= link_to community, class:"bg-white px-4 py-2 hover:bg-purple-500 hover:text-white no-underline flex items-center" do %>
+                    <%= render_svg "icons/conversation", styles: "icon-sm mr-2 fill-current text-gray-500" %>
+                    <span>w/</span> <%= community.name %>
+                    <% end %>
+                  </li>
+                <% end %>
+
+              </ul>
             </div>
+
           </div>
+
           <div class="w-full px-0 lg:w-1/2 md:px-2">
             <div class="relative">
               <input class="pl-10 input" id="search" type="text" placeholder="Search Webbit">
@@ -64,12 +75,12 @@
           </div>
         </div>
 
-        <div class="flex flex-wrap justify-end flex-1 w-full pt-4 intems-center lg:pt-0">
+        <div class="flex flex-wrap items-center justify-end flex-1 w-full pt-4 lg:pt-0">
           
           <div class="mr-3">
             <% if user_signed_in? %>
               <%= link_to new_submission_path do %>
-                <%= render_svg "icons/share" %>
+                <%= render_svg "icons/create" %>
               <% end %>
             <% else %>
                 <%= link_to "Login", new_user_session_path, class: "btn btn-outline btn-small mr-2"%>
@@ -78,17 +89,20 @@
           </div>
 
           <% if user_signed_in? %>
-	            <div class="ml-1 text-gray-600 bg-white border border-gray-400 rounded dropdown hover:bg-gray-200">
-	              <div class="pt-2 pb-2 pl-3 pr-1 dropdown-content">
-	                <%= link_to "#", class: "js-dropdown-user-target no-underline flex justify-between text-gray-700 uppercase text-xs tracking-wide items-center font-semibold" do %>
+	            <div class="ml-1 text-gray-600 bg-white border border-gray-400 rounded dropdown dropdown-user-account hover:bg-gray-200">
+
+	              
+
+	                <%= link_to "#", class: "dropdown-target no-underline flex justify-between text-gray-700 uppercase text-xs tracking-wide items-center font-semibold pt-2 pb-2 pl-3 pr-1" do %>
 	                  <%= current_user.username  if current_user.username %>
 	                  <%= render_svg 'icons/chevron-down' %>
 	                <% end %>
-	                  <ul class="absolute hidden border border-gray-500 rounded-b shadow dropdown-list list-reset pin-l">
+
+	                  <ul class="absolute hidden list-none border border-gray-400 rounded-b shadow dropdown-menu dropdown-menu-right left-o">
 	                    <h5 class="py-2 pl-3 mt-2 text-xs font-normal tracking-wide text-gray-500 uppercase">My Stuff</h5>
 
 	                    <li>
-	                      <%= link_to "#", class: "hover:bg-purple hover:text-white text-gray-700 no-underline block py-2 px-4 flex items-center text-sm" do %>
+	                      <%= link_to "#", class: "hover:bg-purple-500 hover:text-white text-gray-700 no-underline block py-2 px-4 flex items-center text-sm" do %>
 	                        <%= render_svg 'icons/user', styles: "icon-md fill-current text-gray-600 mr-3" %> My Profile
 	                      <% end %>
 	                    </li>
@@ -104,19 +118,12 @@
 	                       <%= render_svg 'icons/signout', styles: "icon-md fill-current text-gray-600  mr-3" %> Sign out
 	                      <% end %>
 	                    </li>
-
 	                  </ul>
-	                </div>
 	              </div>
 	            <% end %>
-
-
         </div>
       </div>
-
     </nav>
-
-    <%= yield %>
-
+    <%= content_for?(:content) ? yield(:content) : yield %>
   </body>
 </html>
