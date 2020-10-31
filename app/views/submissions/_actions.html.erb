@@ -1,0 +1,21 @@
+<div class="flex flex-wrap items-center pt-1">
+    <div class="flex-1">
+        <%= link_to "#", class:"no-underline mr-2 flex items-center" do %>
+            <%= render_svg "icons/conversation", title: "Comments", styles: "fill-current text-gray-500 icon-sm hover/text-gray-600" %>
+            <span class="ml-2 text-sm text-gray-600">1 comment</span>
+        <% end %>
+    </div>
+
+
+    <div class="flex items-center justify-end">
+        <% if author_of(submission) %>
+            <%= link_to edit_submission_path(submission), class:"no-underline mr-2" do %>
+                <%= render_svg "icons/edit", title:"Edit", styles: "fill-current text-gray-500 icon-sm hover:text-gay-700" %>
+            <% end %>
+
+            <%= link_to submission, method: :delete, class:"no-underline", data: { confirm: "Are you sure?" } do %>
+                <%= render_svg "icons/delete", title: "Delete", styles: "fill-current text-gray-500 icon-sm hover:text-gay-700" %>
+            <% end %>
+        <% end %>
+    </div>
+</div>
