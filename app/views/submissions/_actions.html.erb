@@ -1,8 +1,8 @@
 <div class="flex flex-wrap items-center pt-1">
     <div class="flex-1">
-        <%= link_to "#", class:"no-underline mr-2 flex items-center" do %>
+        <%= link_to submission_path(submission, anchor: "comments"), class:"no-underline mr-2 flex items-center" do %>
             <%= render_svg "icons/conversation", title: "Comments", styles: "fill-current text-gray-500 icon-sm hover/text-gray-600" %>
-            <span class="ml-2 text-sm text-gray-600">1 comment</span>
+            <span class="ml-2 text-sm text-gray-600"><%= pluralize(submission.comments.count, 'comment') %></span>
         <% end %>
     </div>
 

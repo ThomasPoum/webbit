@@ -1,0 +1,18 @@
+<div class="pl-6 mb-4 shadow">
+  <div class="flex flex-wrap items-center pt-2 text-sm border-b border-gray-200 border-dashed">
+    <%= render_svg "icons/conversation" %>
+
+    <span class="ml-2">
+      <%= @user.username %> commented on <%= link_to comment.submission.title, comment.submission, class:"link" %> in <%= link_to community_path(comment.submission.community), class: "link" do %>
+        w/<%= comment.submission.community.name %>
+      <% end %>
+
+    </span>
+  </div>
+  <div class="pt-2 pb-4">
+    <%= render "submissions/posted_by", submission: comment %>
+    <div class="py-1 text-sm leading-normal text-gray-800"><%= comment.reply %></div>
+    <%= link_to "Reply", submission_path(comment.submission, anchor: "comment-#{comment.id}"), class: "link text-xs" if user_signed_in? %>
+  </div>
+</div>
+

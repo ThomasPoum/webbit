@@ -22,8 +22,11 @@
                 <% unless user_signed_in? %>
                     <p class="my-2 text-sm text-gray-600"><%= link_to "Login", new_user_session_path, class:"link" %> or <%= link_to "Sign Up", new_user_registration_path, class:"link" %> to comment.</p>
                 <% else %>
-                    <%# TODO : Render comments %>
+                    <%= render "comments/form" %>
                 <% end %>
+                <div id="comments" class="mt-6 border-t border-gray-200">
+                    <%= render @submission.comments %>
+                </div>
             </div>
         </div>
     </div>
@@ -36,3 +39,14 @@
 <% end %>
 
 <%= render "basic_layout" %>
+
+<div id="edit-comment">
+  <div class="modal">
+    <div class="relative max-w-xl p-10 pt-4 m-auto mt-5 bg-white rounded-lg shadow-lg">
+      <button class="absolute top-0 right-0 mt-4 mr-4 js-close-modal top-10">
+        <%= render_svg "icons/close", title: "close", styles: "icon-md fill-current text-gray-500"%>
+      </button>
+      <div class="modal-inner"></div>
+    </div>
+  </div>
+</div>
