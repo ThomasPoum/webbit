@@ -13,8 +13,19 @@
 
                 <h1 class="text-xl font-bold"><%= @submission.title %></h1>
 
-                <div class="mb-5 text-base leading-normal lg:pr-6">
-                    <%= @submission.body %>
+                <div class="mb-5 text-base leading-normal border-b border-gray-200 lg:pr-6">
+
+                    <%= image_tag @submission.submission_image.large.url, class: "max-w-full my-2" if @submission.submission_image.present? %>
+                    <%= video_tag @submission.submission_video.url, class: "max-w-full my-2", controls: true if @submission.submission_video.present? %>
+
+                    <% if @submission.url.present? %>
+                        <div class="items-center justify-center p-3 border rounded my-2flex">
+                            <%= render_svg "icons/link", styles: "mr-2 text-gray-600 fill-current" %>
+                            <%= link_to @submission.url, @submission.url, class: "lg:text-xl text-lg no-underline" %>
+                        </div>
+                    <% end %>
+
+                    <%= @submission.body if @submission.body %>
                 </div>
 
                 <%= render "actions", submission: @submission %>
