@@ -1,0 +1,15 @@
+var commentVote = document.querySelector('#comment-<%= @comment.id %> .js-votes');
+var dynamicNotice = document.querySelector('.js-notice');
+commentVote.innerHTML = "<%= escape_javascript(@comment.total_vote_count) %>";
+dynamicNotice.innerHTML = `
+  <div class="bg-white rounded-lg shadow animate fadeInUp">
+    <div class="flex items-center justify-center px-2 py-4 font-sans font-medium leading-normal text-center text-purple-600">
+      <%= render_svg "icons/info", styles: "fill-current text-purple-600 icon-sm ml-4" %>
+      <div class="flex-1"><%= notice %></div>
+    </div>
+  </div>
+`;
+
+setTimeout(function() {
+  dynamicNotice.innerHTML = "";
+}, 3000);

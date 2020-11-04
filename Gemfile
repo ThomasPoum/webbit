@@ -29,6 +29,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # webit custom gems
+gem 'acts_as_votable', '~> 0.12.1'
 gem 'devise', '~> 4.7', '>= 4.7.3'
 gem 'carrierwave', '~> 2.1'
 gem 'valid_url', '~> 0.0.4'
