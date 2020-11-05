@@ -12,12 +12,15 @@
 
 ActiveRecord::Schema.define(version: 2020_11_04_082305) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "comments", force: :cascade do |t|
     t.text "reply"
-    t.integer "submission_id"
+    t.bigint "submission_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.index ["submission_id"], name: "index_comments_on_submission_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -29,7 +32,7 @@ ActiveRecord::Schema.define(version: 2020_11_04_082305) do
     t.text "sidebar"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.index ["name"], name: "index_communities_on_name", unique: true
     t.index ["user_id"], name: "index_communities_on_user_id"
   end
@@ -42,15 +45,15 @@ ActiveRecord::Schema.define(version: 2020_11_04_082305) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "submission_image"
     t.string "submission_video"
-    t.integer "user_id"
-    t.integer "community_id"
+    t.bigint "user_id"
+    t.bigint "community_id"
     t.index ["community_id"], name: "index_submissions_on_community_id"
     t.index ["user_id"], name: "index_submissions_on_user_id"
   end
 
   create_table "subscriptions", force: :cascade do |t|
-    t.integer "community_id"
-    t.integer "user_id"
+    t.bigint "community_id"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["community_id"], name: "index_subscriptions_on_community_id"
@@ -73,9 +76,9 @@ ActiveRecord::Schema.define(version: 2020_11_04_082305) do
 
   create_table "votes", force: :cascade do |t|
     t.string "votable_type"
-    t.integer "votable_id"
+    t.bigint "votable_id"
     t.string "voter_type"
-    t.integer "voter_id"
+    t.bigint "voter_id"
     t.boolean "vote_flag"
     t.string "vote_scope"
     t.integer "vote_weight"
